@@ -818,12 +818,24 @@ class TradingDashboard {
         const buyThreshold = 0.3;
         const sellThreshold = -0.3;
         
-        document.getElementById('buyBoilThreshold').textContent = `≥ ${buyThreshold}`;
-        document.getElementById('buyKoldThreshold').textContent = `≤ ${sellThreshold}`;
+        // Update threshold displays if elements exist
+        const buyBoilElement = document.getElementById('buyBoilThreshold');
+        const buyKoldElement = document.getElementById('buyKoldThreshold');
+        const configBuyElement = document.getElementById('configBuyThreshold');
+        const configSellElement = document.getElementById('configSellThreshold');
         
-        // Update configuration display
-        document.getElementById('configBuyThreshold').textContent = buyThreshold;
-        document.getElementById('configSellThreshold').textContent = sellThreshold;
+        if (buyBoilElement) {
+            buyBoilElement.textContent = `≥ ${buyThreshold}`;
+        }
+        if (buyKoldElement) {
+            buyKoldElement.textContent = `≤ ${sellThreshold}`;
+        }
+        if (configBuyElement) {
+            configBuyElement.textContent = buyThreshold;
+        }
+        if (configSellElement) {
+            configSellElement.textContent = sellThreshold;
+        }
     }
     
     updateChart(signals) {
@@ -912,7 +924,7 @@ class TradingDashboard {
             <span class="log-message">${message}</span>
         `;
         
-        if (logsList.firstChild?.classList.contains('no-logs')) {
+        if (logsList.firstChild && logsList.firstChild.classList && logsList.firstChild.classList.contains('no-logs')) {
             logsList.innerHTML = '';
         }
         
