@@ -53,6 +53,41 @@ class TradingDashboard:
         # Dashboard thread
         self.dashboard_thread = None
         self.running = False
+        
+        # Fetch initial data
+        self._fetch_initial_data()
+    
+    def _fetch_initial_data(self):
+        # Fetch initial data to populate dashboard
+        try:
+            temp_signal, inventory_signal, storm_signal = self._fetch_latest_signals()
+            trading_signal = self.signal_processor.create_trading_signal(
+                temp_signal, inventory_signal, storm_signal
+            )
+            
+            signal_data = {
+                'timestamp': trading_signal.timestamp.isoformat(),
+                'temperature_signal': trading_signal.temperature_signal,
+                'inventory_signal': trading_signal.inventory_signal,
+                'storm_signal': trading_signal.storm_signal,
+                'total_signal': trading_signal.total_signal,
+                'action': trading_signal.action,
+                'symbol': trading_signal.symbol,
+                'confidence': trading_signal.confidence
+            }
+            
+            # Get portfolio data
+            portfolio = self.trader.get_portfolio_summary()
+            
+            # Update dashboard data
+            self.dashboard_data['signals'] = [signal_data]
+            self.dashboard_data['portfolio'] = portfolio
+            self.dashboard_data['status'] = 'running'
+            self.dashboard_data['last_update'] = datetime.now().isoformat()
+            
+            self.logger.info("Initial dashboard data fetched successfully")
+        except Exception as e:
+            self.logger.error(f"Error fetching initial dashboard data: {e}")
     
     def _setup_routes(self):
         # Setup Flask routes

@@ -73,3 +73,6 @@
 {"timestamp": "2025-10-19T19:49:32.585093", "temperature_signal": 13.745600000000001, "inventory_signal": -0.03278998698491508, "storm_signal": 0.6, "total_signal": 6.919684005206034, "action": "BUY", "confidence": 2.0}
 {"timestamp": "2025-10-19T19:50:53.736481", "temperature_signal": 13.745600000000001, "inventory_signal": -3.352221451382638, "storm_signal": 0.6, "total_signal": 5.591911419446945, "action": "BUY", "confidence": 2.0}
 {"timestamp": "2025-10-19T19:56:28.538903", "temperature_signal": 13.745600000000001, "inventory_signal": -3.352221451382638, "storm_signal": 0.6, "total_signal": 5.591911419446945, "action": "BUY", "confidence": 2.0}
+{"timestamp": "2025-10-19T20:07:25.645924", "temperature_signal": 13.745600000000001, "inventory_signal": -3.352221451382638, "storm_signal": 0.6, "total_signal": 5.591911419446945, "action": "BUY", "confidence": 2.0}
+{"timestamp": "2025-10-19T20:12:29.963458", "temperature_signal": 13.745600000000001, "inventory_signal": -0.03278998698491508, "storm_signal": 0.6, "total_signal": 6.919684005206034, "action": "BUY", "confidence": 2.0}
+{"timestamp": "2025-10-19T20:13:05.356240", "temperature_signal": 13.745600000000001, "inventory_signal": -3.352221451382638, "storm_signal": 0.6, "total_signal": 5.591911419446945, "action": "BUY", "confidence": 2.0}

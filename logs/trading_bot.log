@@ -7400,3 +7400,438 @@ jinja2.exceptions.TemplateNotFound: dashboard.html
 2025-10-19 20:05:20,734 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
 2025-10-19 20:05:20,735 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
 2025-10-19 20:05:22,736 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:05:40,985 - dashboard.dashboard - INFO - Reading logs from: logs/trading_bot.log
+2025-10-19 20:07:16,597 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:07:16,599 - trading.alpaca_trader - INFO - Buying power: $66,894.68
+2025-10-19 20:07:17,002 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:07:17,003 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:07:17,003 - dashboard.dashboard - ERROR - Error starting dashboard: [WinError 10048] Only one usage of each socket address (protocol/network address/port) is normally permitted
+2025-10-19 20:07:19,008 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:07:19,008 - utils.trading_logger - INFO - Starting continuous trading with 6h intervals
+2025-10-19 20:07:19,008 - utils.trading_logger - INFO - ==================================================
+2025-10-19 20:07:19,008 - utils.trading_logger - INFO - Starting trading cycle at 2025-10-19 20:07:19.008844
+2025-10-19 20:07:19,008 - utils.trading_logger - INFO - Fetching trading signals...
+2025-10-19 20:07:19,564 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:07:19,758 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:07:20,054 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:07:20,468 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:07:20,478 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:07:20,537 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:07:20,687 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:07:20,690 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:07:21,071 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:07:21,588 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:07:21,588 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:07:21,588 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:07:22,249 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:07:22,253 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:07:22,271 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:07:23,173 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:07:23,180 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:07:23,182 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:07:23,182 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:07:23,182 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:07:25,639 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:07:25,639 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:07:25,639 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:07:25,639 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:07:25,639 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:07:25,645 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:07:25,645 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:07:25,645 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:07:25,645 - utils.trading_logger - INFO - TRADING SIGNAL: {
+  "timestamp": "2025-10-19T20:07:25.645924",
+  "temperature_signal": 13.745600000000001,
+  "inventory_signal": -3.352221451382638,
+  "storm_signal": 0.6,
+  "total_signal": 5.591911419446945,
+  "action": "BUY",
+  "confidence": 2.0
+}
+2025-10-19 20:07:26,058 - trading.alpaca_trader - INFO - BOIL position: None
+2025-10-19 20:07:26,058 - trading.alpaca_trader - INFO - KOLD position: None
+2025-10-19 20:07:26,059 - trading.alpaca_trader - INFO - Account info: {'equity': 99936.34, 'buying_power': 66894.68, 'cash': 99753.12, 'portfolio_value': 99936.34}
+2025-10-19 20:07:26,844 - trading.alpaca_trader - INFO - Current price: $26.06, Order quantity: 38
+2025-10-19 20:07:26,844 - trading.alpaca_trader - INFO - Placing buy order for 38 shares of BOIL
+2025-10-19 20:07:29,144 - trading.alpaca_trader - INFO - Order placed: {'order_id': '6d201814-4488-4049-81bf-3dea5f00304a', 'symbol': 'BOIL', 'qty': '38', 'side': 'buy', 'status': 'accepted', 'filled_qty': '0', 'filled_avg_price': None, 'submitted_at': '2025-10-19 17:07:26.325881072+00:00'}
+2025-10-19 20:07:29,144 - utils.trading_logger - INFO - TRADE EXECUTED: {
+  "order_id": "6d201814-4488-4049-81bf-3dea5f00304a",
+  "symbol": "BOIL",
+  "qty": "38",
+  "side": "buy",
+  "status": "accepted",
+  "filled_qty": "0",
+  "filled_avg_price": null,
+  "submitted_at": "2025-10-19 17:07:26.325881072+00:00"
+}
+2025-10-19 20:07:29,530 - utils.trading_logger - INFO - PORTFOLIO STATUS: {
+  "total_value": 99936.34,
+  "cash": 99753.12,
+  "buying_power": 64914.48,
+  "positions": [
+    {
+      "symbol": "NVDA",
+      "qty": 1.0,
+      "market_value": 183.22,
+      "unrealized_pl": 77.61,
+      "unrealized_plpc": 0.7348735915159549
+    }
+  ]
+}
+2025-10-19 20:07:29,531 - utils.trading_logger - INFO - Trading cycle completed successfully
+2025-10-19 20:07:29,531 - utils.trading_logger - INFO - Waiting 6 hours until next cycle
+2025-10-19 20:07:40,591 - dashboard.dashboard - INFO - Dashboard client disconnected
+2025-10-19 20:07:40,626 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:07:42,176 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:07:42,178 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:07:42,198 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:07:42,437 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:07:42,444 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:07:42,584 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:07:42,594 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:08:33,661 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:08:34,150 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:08:34,678 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:08:35,136 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:08:35,618 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:08:35,618 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:08:35,618 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:08:37,284 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:08:37,288 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:08:37,291 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:08:37,291 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:08:37,291 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:08:40,356 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:08:40,356 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:08:40,356 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:08:40,356 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:08:40,356 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:08:40,356 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:08:40,356 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:08:40,356 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:10:27,960 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:10:27,962 - trading.alpaca_trader - INFO - Buying power: $64,914.48
+2025-10-19 20:10:28,767 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:10:29,362 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:10:29,868 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:10:30,397 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:10:30,885 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:10:30,885 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:10:30,885 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:10:32,736 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:10:32,736 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:10:32,736 - data_sources.eia_data - INFO - Current storage: 883 Bcf
+2025-10-19 20:10:32,736 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:10:32,736 - data_sources.eia_data - INFO - Inventory signal: -0.033
+2025-10-19 20:10:35,772 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:10:35,772 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:10:35,772 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:10:35,772 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:10:35,772 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:10:35,772 - signals.signal_processor - INFO -   Inventory: -0.033 (weight: 0.4)
+2025-10-19 20:10:35,772 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:10:35,772 - signals.signal_processor - INFO -   Total signal: 6.920
+2025-10-19 20:10:36,048 - dashboard.dashboard - INFO - Initial dashboard data fetched successfully
+2025-10-19 20:10:36,048 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:10:36,048 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:10:37,757 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:10:38,050 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:10:52,158 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:10:52,786 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:10:53,386 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:10:53,910 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:10:54,509 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:10:54,509 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:10:54,509 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:10:56,431 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:10:56,438 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:10:56,439 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:10:56,439 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:10:56,439 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:10:56,970 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:10:56,971 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:10:56,971 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:10:56,971 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:10:56,971 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:10:56,971 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:10:56,972 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:10:56,972 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:11:08,375 - dashboard.dashboard - INFO - Dashboard client disconnected
+2025-10-19 20:11:08,796 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:11:09,621 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:11:09,638 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:11:09,750 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:11:09,761 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:11:11,283 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:11:11,286 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:11:11,306 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:11:15,659 - dashboard.dashboard - INFO - Dashboard client disconnected
+2025-10-19 20:11:15,711 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:11:17,127 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:11:17,130 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:11:17,148 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:11:17,289 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:11:17,299 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:11:17,399 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:11:17,412 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:11:40,280 - dashboard.dashboard - INFO - Dashboard client disconnected
+2025-10-19 20:11:40,321 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:11:41,804 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:11:41,807 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:11:41,826 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:11:41,942 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:11:41,956 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:11:42,080 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:11:42,093 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:12:09,907 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:12:09,907 - trading.alpaca_trader - INFO - Buying power: $64,914.48
+2025-10-19 20:12:10,757 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:12:10,853 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:12:10,853 - trading.alpaca_trader - INFO - Buying power: $64,914.48
+2025-10-19 20:12:11,302 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:12:11,671 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:12:11,839 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:12:12,303 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:12:12,412 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:12:12,974 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:12:13,041 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:12:13,041 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:12:13,041 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:12:13,507 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:12:14,002 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:12:14,002 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:12:14,002 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:12:14,509 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:12:14,513 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:12:14,515 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:12:14,515 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:12:14,515 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:12:15,589 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:12:15,594 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:12:15,597 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:12:15,598 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:12:15,598 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:12:21,713 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:21,713 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:21,713 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:12:21,713 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:12:21,713 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:12:21,713 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:12:21,713 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:12:21,713 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:12:22,008 - dashboard.dashboard - INFO - Initial dashboard data fetched successfully
+2025-10-19 20:12:22,009 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:12:22,009 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:12:24,011 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:12:24,011 - utils.trading_logger - INFO - Starting continuous trading with 6h intervals
+2025-10-19 20:12:24,011 - utils.trading_logger - INFO - ==================================================
+2025-10-19 20:12:24,011 - utils.trading_logger - INFO - Starting trading cycle at 2025-10-19 20:12:24.011313
+2025-10-19 20:12:24,011 - utils.trading_logger - INFO - Fetching trading signals...
+2025-10-19 20:12:24,403 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:24,403 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:24,403 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:12:24,403 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:12:24,403 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:12:24,403 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:12:24,403 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:12:24,403 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:12:24,753 - dashboard.dashboard - INFO - Initial dashboard data fetched successfully
+2025-10-19 20:12:24,753 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:12:24,754 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:12:24,754 - dashboard.dashboard - ERROR - Error starting dashboard: [WinError 10048] Only one usage of each socket address (protocol/network address/port) is normally permitted
+2025-10-19 20:12:24,841 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:12:25,566 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:12:25,652 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:12:25,652 - trading.alpaca_trader - INFO - Buying power: $64,914.48
+2025-10-19 20:12:26,238 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:12:26,502 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:12:26,757 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:12:26,786 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:12:26,985 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:12:27,303 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:12:27,303 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:12:27,303 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:12:27,525 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:12:28,108 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:12:28,640 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:12:28,640 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:12:28,640 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:12:28,870 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:12:28,872 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:12:28,875 - data_sources.eia_data - INFO - Current storage: 883 Bcf
+2025-10-19 20:12:28,875 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:12:28,875 - data_sources.eia_data - INFO - Inventory signal: -0.033
+2025-10-19 20:12:29,963 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:29,963 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:29,963 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:12:29,963 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:12:29,963 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:12:29,963 - signals.signal_processor - INFO -   Inventory: -0.033 (weight: 0.4)
+2025-10-19 20:12:29,963 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:12:29,963 - signals.signal_processor - INFO -   Total signal: 6.920
+2025-10-19 20:12:29,963 - utils.trading_logger - INFO - TRADING SIGNAL: {
+  "timestamp": "2025-10-19T20:12:29.963458",
+  "temperature_signal": 13.745600000000001,
+  "inventory_signal": -0.03278998698491508,
+  "storm_signal": 0.6,
+  "total_signal": 6.919684005206034,
+  "action": "BUY",
+  "confidence": 2.0
+}
+2025-10-19 20:12:30,139 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:12:30,143 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:12:30,148 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:12:30,148 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:12:30,149 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:12:30,440 - trading.alpaca_trader - INFO - BOIL position: None
+2025-10-19 20:12:30,440 - trading.alpaca_trader - INFO - KOLD position: None
+2025-10-19 20:12:30,442 - trading.alpaca_trader - INFO - Account info: {'equity': 99936.34, 'buying_power': 64914.48, 'cash': 99753.12, 'portfolio_value': 99936.34}
+2025-10-19 20:12:30,811 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:30,812 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:30,812 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:12:30,812 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:12:30,812 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:12:30,812 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:12:30,812 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:12:30,812 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:12:31,173 - dashboard.dashboard - INFO - Initial dashboard data fetched successfully
+2025-10-19 20:12:31,173 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:12:31,176 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:12:31,177 - dashboard.dashboard - ERROR - Error starting dashboard: [WinError 10048] Only one usage of each socket address (protocol/network address/port) is normally permitted
+2025-10-19 20:12:31,318 - trading.alpaca_trader - INFO - Current price: $26.06, Order quantity: 38
+2025-10-19 20:12:31,318 - trading.alpaca_trader - INFO - Placing buy order for 38 shares of BOIL
+2025-10-19 20:12:33,183 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:12:33,622 - trading.alpaca_trader - INFO - Order placed: {'order_id': 'f65325be-74d9-4880-ad29-c3cabb0c9094', 'symbol': 'BOIL', 'qty': '38', 'side': 'buy', 'status': 'accepted', 'filled_qty': '0', 'filled_avg_price': None, 'submitted_at': '2025-10-19 17:12:30.792569731+00:00'}
+2025-10-19 20:12:33,622 - utils.trading_logger - INFO - TRADE EXECUTED: {
+  "order_id": "f65325be-74d9-4880-ad29-c3cabb0c9094",
+  "symbol": "BOIL",
+  "qty": "38",
+  "side": "buy",
+  "status": "accepted",
+  "filled_qty": "0",
+  "filled_avg_price": null,
+  "submitted_at": "2025-10-19 17:12:30.792569731+00:00"
+}
+2025-10-19 20:12:33,907 - utils.trading_logger - INFO - PORTFOLIO STATUS: {
+  "total_value": 99936.34,
+  "cash": 99753.12,
+  "buying_power": 62934.28,
+  "positions": [
+    {
+      "symbol": "NVDA",
+      "qty": 1.0,
+      "market_value": 183.22,
+      "unrealized_pl": 77.61,
+      "unrealized_plpc": 0.7348735915159549
+    }
+  ]
+}
+2025-10-19 20:12:33,907 - utils.trading_logger - INFO - Trading cycle completed successfully
+2025-10-19 20:12:33,907 - utils.trading_logger - INFO - Waiting 6 hours until next cycle
+2025-10-19 20:12:51,659 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:12:51,659 - trading.alpaca_trader - INFO - Buying power: $62,934.28
+2025-10-19 20:12:52,678 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:12:53,260 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:12:53,884 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:12:54,408 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:12:54,877 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:12:54,877 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:12:54,877 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:12:56,379 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:12:56,387 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:12:56,387 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:12:56,387 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:12:56,387 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:12:57,324 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:57,324 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:12:57,324 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:12:57,324 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:12:57,324 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:12:57,324 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:12:57,324 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:12:57,324 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:12:57,683 - dashboard.dashboard - INFO - Initial dashboard data fetched successfully
+2025-10-19 20:12:57,683 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:12:57,683 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:12:58,971 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:12:59,617 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:12:59,638 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:12:59,686 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
+2025-10-19 20:12:59,686 - utils.trading_logger - INFO - Starting continuous trading with 6h intervals
+2025-10-19 20:12:59,686 - utils.trading_logger - INFO - ==================================================
+2025-10-19 20:12:59,686 - utils.trading_logger - INFO - Starting trading cycle at 2025-10-19 20:12:59.686158
+2025-10-19 20:12:59,686 - utils.trading_logger - INFO - Fetching trading signals...
+2025-10-19 20:13:00,555 - data_sources.weather_data - INFO - Region 40.7128,-74.0060: HDD = 361.50
+2025-10-19 20:13:01,288 - data_sources.weather_data - INFO - Region 41.8781,-87.6298: HDD = 381.15
+2025-10-19 20:13:01,515 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:13:01,517 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:13:01,550 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:13:01,704 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:13:01,725 - dashboard.dashboard - INFO - Dashboard client connected
+2025-10-19 20:13:01,842 - data_sources.weather_data - INFO - Region 42.3601,-71.0589: HDD = 367.20
+2025-10-19 20:13:02,384 - data_sources.weather_data - INFO - Region 39.9526,-75.1652: HDD = 358.40
+2025-10-19 20:13:02,934 - data_sources.weather_data - INFO - Region 42.3314,-83.0458: HDD = 374.95
+2025-10-19 20:13:02,934 - data_sources.weather_data - INFO - Average HDD: 368.64, Signal: 13.746
+2025-10-19 20:13:02,934 - data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:13:04,598 - data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:13:04,598 - data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (last year only)
+2025-10-19 20:13:04,603 - data_sources.eia_data - INFO - Current storage: 3721 Bcf
+2025-10-19 20:13:04,603 - data_sources.eia_data - INFO - Historical avg: 855 Bcf
+2025-10-19 20:13:04,603 - data_sources.eia_data - INFO - Inventory signal: -3.352
+2025-10-19 20:13:05,355 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:13:05,355 - data_sources.noaa_data - INFO - Alert: Winter Weather Advisory (moderate) - Signal: 0.300
+2025-10-19 20:13:05,355 - data_sources.noaa_data - INFO - Total storm signal: 0.600
+2025-10-19 20:13:05,355 - signals.signal_processor - INFO - Signal components:
+2025-10-19 20:13:05,355 - signals.signal_processor - INFO -   Temperature: 13.746 (weight: 0.5)
+2025-10-19 20:13:05,356 - signals.signal_processor - INFO -   Inventory: -3.352 (weight: 0.4)
+2025-10-19 20:13:05,356 - signals.signal_processor - INFO -   Storm: 0.600 (weight: 0.1)
+2025-10-19 20:13:05,356 - signals.signal_processor - INFO -   Total signal: 5.592
+2025-10-19 20:13:05,356 - utils.trading_logger - INFO - TRADING SIGNAL: {
+  "timestamp": "2025-10-19T20:13:05.356240",
+  "temperature_signal": 13.745600000000001,
+  "inventory_signal": -3.352221451382638,
+  "storm_signal": 0.6,
+  "total_signal": 5.591911419446945,
+  "action": "BUY",
+  "confidence": 2.0
+}
+2025-10-19 20:13:05,938 - trading.alpaca_trader - INFO - BOIL position: None
+2025-10-19 20:13:05,938 - trading.alpaca_trader - INFO - KOLD position: None
+2025-10-19 20:13:05,938 - trading.alpaca_trader - INFO - Account info: {'equity': 99936.34, 'buying_power': 62934.28, 'cash': 99753.12, 'portfolio_value': 99936.34}
+2025-10-19 20:13:06,655 - trading.alpaca_trader - INFO - Current price: $26.06, Order quantity: 38
+2025-10-19 20:13:06,655 - trading.alpaca_trader - INFO - Placing buy order for 38 shares of BOIL
+2025-10-19 20:13:09,026 - trading.alpaca_trader - INFO - Order placed: {'order_id': 'e373c20e-048d-4d77-96d3-f4a3713142be', 'symbol': 'BOIL', 'qty': '38', 'side': 'buy', 'status': 'accepted', 'filled_qty': '0', 'filled_avg_price': None, 'submitted_at': '2025-10-19 17:13:06.136390872+00:00'}
+2025-10-19 20:13:09,026 - utils.trading_logger - INFO - TRADE EXECUTED: {
+  "order_id": "e373c20e-048d-4d77-96d3-f4a3713142be",
+  "symbol": "BOIL",
+  "qty": "38",
+  "side": "buy",
+  "status": "accepted",
+  "filled_qty": "0",
+  "filled_avg_price": null,
+  "submitted_at": "2025-10-19 17:13:06.136390872+00:00"
+}
+2025-10-19 20:13:09,397 - utils.trading_logger - INFO - PORTFOLIO STATUS: {
+  "total_value": 99936.34,
+  "cash": 99753.12,
+  "buying_power": 60954.08,
+  "positions": [
+    {
+      "symbol": "NVDA",
+      "qty": 1.0,
+      "market_value": 183.22,
+      "unrealized_pl": 77.61,
+      "unrealized_plpc": 0.7348735915159549
+    }
+  ]
+}
+2025-10-19 20:13:09,398 - utils.trading_logger - INFO - Trading cycle completed successfully
+2025-10-19 20:13:09,398 - utils.trading_logger - INFO - Waiting 6 hours until next cycle
+2025-10-19 20:13:27,472 - src.data_sources.yahoo_finance_data - INFO - Fetching BOIL price data from Yahoo Finance
+2025-10-19 20:13:27,593 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for BOIL from Yahoo Finance
+2025-10-19 20:13:27,607 - src.data_sources.eia_data - INFO - Fetching EIA data from 2024-10-19 to 2025-10-19
+2025-10-19 20:13:29,094 - src.data_sources.eia_data - INFO - EIA API response columns: ['period', 'duoarea', 'area-name', 'product', 'product-name', 'process', 'process-name', 'series', 'series-description', 'value', 'units']
+2025-10-19 20:13:29,096 - src.data_sources.eia_data - INFO - Successfully fetched 408 data points from EIA API (custom range)
+2025-10-19 20:13:29,117 - src.data_sources.yahoo_finance_data - INFO - Fetching KOLD price data from Yahoo Finance
+2025-10-19 20:13:29,254 - src.data_sources.yahoo_finance_data - INFO - Successfully fetched 249 price points for KOLD from Yahoo Finance
+2025-10-19 20:13:29,266 - dashboard.dashboard - INFO - Dashboard client connected

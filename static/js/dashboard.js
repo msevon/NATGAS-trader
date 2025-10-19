@@ -109,7 +109,6 @@ class TradingDashboard {
         this.setupEventListeners();
         
         // Add callback methods for new charts
-        this.loadSignalDataWithCallback = this.createCallbackWrapper(this.loadSignalData.bind(this));
         this.loadTemperatureDataWithCallback = this.createCallbackWrapper(this.loadTemperatureData.bind(this));
         this.loadStormDataWithCallback = this.createCallbackWrapper(this.loadStormData.bind(this));
         
@@ -427,9 +426,6 @@ class TradingDashboard {
             
             // Load storage data with current time period
             this.loadStorageData();
-            
-            // Load historical signals with current time period
-            this.loadHistoricalSignals();
             
             // Load temperature data
             this.loadTemperatureData();
