@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot or Cold Trading Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Hot or Cold Trading</h1>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Signal Cards -->
+            <div class="card signal-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-signal"></i> Trading Signals</h3>
+                    <div class="last-update" id="signalUpdate">Last update: --</div>
+                </div>
+                <div class="signal-grid">
+                    <div class="signal-item temperature">
+                        <div class="signal-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="signal-content">
+                            <div class="signal-label">Temperature (HDD)</div>
+                            <div class="signal-value" id="tempSignal">--</div>
+                            <div class="signal-weight">Weight: 50%</div>
+                        </div>
+                    </div>
+                    <div class="signal-item inventory">
+                        <div class="signal-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="signal-content">
+                            <div class="signal-label">Storage Inventory</div>
+                            <div class="signal-value" id="inventorySignal">--</div>
+                            <div class="signal-weight">Weight: 40%</div>
+                        </div>
+                    </div>
+                    <div class="signal-item storm">
+                        <div class="signal-icon">
+                            <i class="fas fa-cloud-rain"></i>
+                        </div>
+                        <div class="signal-content">
+                            <div class="signal-label">Storm Alerts</div>
+                            <div class="signal-value" id="stormSignal">--</div>
+                            <div class="signal-weight">Weight: 10%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-signal">
+                    <div class="total-label">Total Signal</div>
+                    <div class="total-value" id="totalSignal">--</div>
+                    <div class="action-badge" id="actionBadge">--</div>
+                </div>
+            </div>
+
+            <!-- Portfolio Card -->
+            <div class="card portfolio-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-wallet"></i> Portfolio Status</h3>
+                    <button class="refresh-btn" onclick="refreshPortfolio()">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <div class="portfolio-content">
+                    <div class="portfolio-item">
+                        <div class="portfolio-label">Total Value</div>
+                        <div class="portfolio-value" id="totalValue">$--</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-label">Cash</div>
+                        <div class="portfolio-value" id="cashValue">$--</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-label">Buying Power</div>
+                        <div class="portfolio-value" id="buyingPower">$--</div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-label">Positions</div>
+                        <div class="portfolio-value" id="positionCount">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Trades -->
+            <div class="card trades-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Recent Trades</h3>
+                </div>
+                <div class="trades-content">
+                    <div class="trades-list" id="tradesList">
+                        <div class="no-trades">No trades yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Charts Section -->
+            <div class="charts-section">
+                <!-- Signal Chart -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-area"></i> Signal History</h3>
+                        <div class="chart-subtitle">Trading Signal Components Over Time</div>
+                        <div class="time-period-selector">
+                            <button class="time-btn" data-period="1month">1 mo</button>
+                            <button class="time-btn" data-period="6months">6 mo</button>
+                            <button class="time-btn active" data-period="1year">1 yr</button>
+                            <button class="time-btn" data-period="3years">3 yr</button>
+                            <button class="time-btn" data-period="5years">5 yr</button>
+                            <button class="time-btn" data-period="all">max</button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="signalChartLoading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Loading data...</div>
+                        </div>
+                        <canvas id="signalChart"></canvas>
+                    </div>
+                </div>
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> BOIL Price Data</h3>
+                        <div class="chart-subtitle">2x Leveraged Natural Gas ETF</div>
+                        <div class="time-period-selector">
+                            <button class="time-btn" data-period="1month">1 mo</button>
+                            <button class="time-btn" data-period="6months">6 mo</button>
+                            <button class="time-btn active" data-period="1year">1 yr</button>
+                            <button class="time-btn" data-period="3years">3 yr</button>
+                            <button class="time-btn" data-period="5years">5 yr</button>
+                            <button class="time-btn" data-period="all">max</button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="boilChartLoading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Loading data...</div>
+                        </div>
+                        <canvas id="boilChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> KOLD Price Data</h3>
+                        <div class="chart-subtitle">2x Inverse Natural Gas ETF</div>
+                        <div class="time-period-selector">
+                            <button class="time-btn" data-period="1month">1 mo</button>
+                            <button class="time-btn" data-period="6months">6 mo</button>
+                            <button class="time-btn active" data-period="1year">1 yr</button>
+                            <button class="time-btn" data-period="3years">3 yr</button>
+                            <button class="time-btn" data-period="5years">5 yr</button>
+                            <button class="time-btn" data-period="all">max</button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="koldChartLoading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Loading data...</div>
+                        </div>
+                        <canvas id="koldChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-database"></i> Natural Gas Storage Data (EIA)</h3>
+                        <div class="chart-subtitle">Weekly Storage Levels (BCF)</div>
+                        <div class="time-period-selector">
+                            <button class="time-btn" data-period="1month">1 mo</button>
+                            <button class="time-btn" data-period="6months">6 mo</button>
+                            <button class="time-btn active" data-period="1year">1 yr</button>
+                            <button class="time-btn" data-period="3years">3 yr</button>
+                            <button class="time-btn" data-period="5years">5 yr</button>
+                            <button class="time-btn" data-period="all">max</button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="storageChartLoading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Loading data...</div>
+                        </div>
+                        <canvas id="storageChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-thermometer-half"></i> Temperature Data (HDD)</h3>
+                        <div class="chart-subtitle">Heating Degree Days by Region</div>
+                        <div class="time-period-selector">
+                            <button class="time-btn" data-period="1month">1 mo</button>
+                            <button class="time-btn" data-period="6months">6 mo</button>
+                            <button class="time-btn active" data-period="1year">1 yr</button>
+                            <button class="time-btn" data-period="3years">3 yr</button>
+                            <button class="time-btn" data-period="5years">5 yr</button>
+                            <button class="time-btn" data-period="all">max</button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="temperatureChartLoading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Loading data...</div>
+                        </div>
+                        <canvas id="temperatureChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cloud-rain"></i> Storm & Disruption Alerts</h3>
+                        <div class="chart-subtitle">NOAA Weather Alerts</div>
+                        <div class="time-period-selector">
+                            <button class="time-btn" data-period="1month">1 mo</button>
+                            <button class="time-btn" data-period="6months">6 mo</button>
+                            <button class="time-btn active" data-period="1year">1 yr</button>
+                            <button class="time-btn" data-period="3years">3 yr</button>
+                            <button class="time-btn" data-period="5years">5 yr</button>
+                            <button class="time-btn" data-period="all">max</button>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="stormChartLoading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">Loading data...</div>
+                        </div>
+                        <canvas id="stormChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Configuration -->
+            <div class="card config-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-cog"></i> Configuration</h3>
+                </div>
+                <div class="config-content">
+                    <div class="config-item">
+                        <div class="config-label">Bull Symbol</div>
+                        <div class="config-value" id="configSymbol">BOIL</div>
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">Bear Symbol</div>
+                        <div class="config-value" id="configInverseSymbol">KOLD</div>
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">Position Size</div>
+                        <div class="config-value" id="configPositionSize">$1,000</div>
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">Buy Threshold</div>
+                        <div class="config-value" id="configBuyThreshold">0.3</div>
+                    </div>
+                    <div class="config-item">
+                        <div class="config-label">Sell Threshold</div>
+                        <div class="config-value" id="configSellThreshold">-0.3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-Width System Logs -->
+    <div class="logs-section">
+        <div class="card logs-card-full">
+            <div class="card-header">
+                <h3><i class="fas fa-terminal"></i> System Logs</h3>
+                <div class="log-controls">
+                    <button class="clear-btn" onclick="clearLogs()">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+            <div class="logs-content-full">
+                <div class="logs-list-full" id="logsListFull">
+                    <div class="no-logs">No logs yet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

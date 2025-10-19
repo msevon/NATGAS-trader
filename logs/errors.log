@@ -1,0 +1,1 @@
+{"timestamp": "2025-10-19T01:49:16.089413", "error_type": "TypeError", "error_message": "Object of type Timestamp is not JSON serializable", "context": "Trading cycle"}

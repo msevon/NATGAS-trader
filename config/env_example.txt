@@ -1,0 +1,25 @@
+# Environment Variables for Hot or Cold Trading
+
+# Alpaca API Credentials (Required)
+# Get these from https://app.alpaca.markets/paper/dashboard/overview
+ALPACA_API_KEY=your_alpaca_api_key_here
+ALPACA_SECRET_KEY=your_alpaca_secret_key_here
+ALPACA_BASE_URL=https://paper-api.alpaca.markets
+
+# EIA API Key (Optional - will use mock data if not provided)
+# Get this from https://www.eia.gov/opendata/register.php
+EIA_API_KEY=your_eia_api_key_here
+
+# Trading Configuration (Optional - defaults provided)
+SYMBOL=BOIL
+INVERSE_SYMBOL=KOLD
+POSITION_SIZE=1000.0
+BUY_THRESHOLD=0.3
+SELL_THRESHOLD=-0.3
+TEMPERATURE_WEIGHT=0.5
+INVENTORY_WEIGHT=0.4
+STORM_WEIGHT=0.1
+
+# Logging Configuration (Optional)
+LOG_LEVEL=INFO
+LOG_FILE=trading_bot.log
