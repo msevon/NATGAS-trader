@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quick status check for the Hot or Cold Trading Bot
+Quick status check for the NATGAS TRADER
 
 This script shows the current portfolio status and recent signals.
 """
@@ -24,7 +24,7 @@ def main():
         logger = TradingLogger(config)
         trader = AlpacaTrader(config)
         
-        print("Hot or Cold Trading Bot - Status Check")
+        print("NATGAS TRADER - Status Check")
         print("=" * 40)
         
         # Get account info

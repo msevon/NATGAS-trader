@@ -1,4 +1,4 @@
-/* Hot or Cold Trading Dashboard - Dark Theme */
+/* NATGAS TRADER Dashboard - Dark Theme */
 
 :root {
     --bg-primary: #000000;
@@ -7,14 +7,19 @@
     --text-primary: #ffffff;
     --text-secondary: #ffffff;
     --text-muted: #888888;
-    --accent-primary: #00ff00;
-    --accent-secondary: #ff0000;
-    --accent-warning: #ffff00;
-    --accent-success: #00ff00;
-    --accent-danger: #ff0000;
+    --accent-primary: rgba(15, 124, 191);  /* Blue */
+    --accent-secondary: rgba(230, 56, 56); /* Red */
+    --accent-warning: rgba(255, 165, 0);   /* Orange for warnings */
+    --accent-success: rgba(15, 124, 191);  /* Blue for success */
+    --accent-danger: rgba(230, 56, 56);    /* Red for errors */
     --border-color: #333333;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.5);
+    
+    /* Chart colors */
+    --chart-boil: rgba(230, 56, 56);       /* Red for BOIL */
+    --chart-kold: rgba(15, 124, 191);       /* Blue for KOLD */
+    --chart-accent: rgba(15, 124, 191);     /* Blue accent */
 }
 
 * {
@@ -59,6 +64,12 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.logo-image {
+    height: 48px;
+    width: auto;
+    filter: brightness(1.1);
 }
 
 .logo i {
@@ -106,26 +117,55 @@ body {
 
 /* Dashboard Grid */
 .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    gap: 2rem;
     padding: 2rem;
-    max-width: 1400px;
+    max-width: 1800px;
     margin: 0 auto;
+    min-height: calc(100vh - 120px);
+}
+
+.left-panel {
+    flex: 0 0 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-content: start;
 }
 
 /* Cards */
 .card {
     background: var(--bg-secondary);
     border-radius: 12px;
-    border: 1px solid var(--border-color);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
     box-shadow: var(--shadow);
     overflow: hidden;
-    transition: all 0.3s ease;
 }
 
-.card:hover {
-    border-color: var(--accent-primary);
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(15, 124, 191, 0.8), rgba(230, 56, 56, 0.8));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    z-index: -1;
 }
 
 .card-header {
@@ -396,7 +436,7 @@ body {
     color: var(--text-secondary);
 }
 
-.no-trades, .no-logs {
+.no-trades {
     text-align: center;
     color: var(--text-muted);
     font-style: italic;
@@ -513,49 +553,6 @@ body {
     height: 100%;
 }
 
-/* Logs Card */
-.logs-content {
-    padding: 1.5rem;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.logs-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.log-item {
-    padding: 0.5rem;
-    background: var(--bg-tertiary);
-    border-radius: 4px;
-    font-family: 'Play', monospace;
-    font-size: 0.8rem;
-    border-left: 3px solid var(--border-color);
-}
-
-.log-item.info {
-    border-left-color: var(--accent-primary);
-}
-
-.log-item.warning {
-    border-left-color: var(--accent-warning);
-}
-
-.log-item.error {
-    border-left-color: var(--accent-danger);
-}
-
-.log-time {
-    color: var(--text-muted);
-    margin-right: 0.5rem;
-}
-
-.log-message {
-    color: var(--text-secondary);
-}
-
 /* Config Card */
 .config-content {
     padding: 1.5rem;
@@ -585,18 +582,35 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        flex-direction: column;
+        max-width: 100%;
+    }
+    
+    .left-panel {
+        flex: none;
+        width: 100%;
+    }
+    
+    .right-panel {
+        flex-direction: column;
+    }
+}
+
 @media (max-width: 768px) {
     .dashboard-grid {
-        grid-template-columns: 1fr;
         padding: 1rem;
+        gap: 1rem;
     }
     
-    .signal-card {
-        grid-column: span 1;
+    .left-panel,
+    .right-panel {
+        gap: 1rem;
     }
     
-    .signal-grid {
-        grid-template-columns: 1fr;
+    .right-panel {
+        flex-direction: column;
     }
     
     .header-content {

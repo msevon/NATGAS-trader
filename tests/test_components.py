@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test script for the Hot or Cold Trading Bot
+Test script for the NATGAS TRADER
 
 This script tests individual components without making actual trades.
 """
@@ -75,7 +75,7 @@ def test_signal_processing():
 
 def main():
     """Run all tests"""
-    print("Hot or Cold Trading Bot - Component Tests")
+    print("NATGAS TRADER - Component Tests")
     print("=" * 50)
     
     try:

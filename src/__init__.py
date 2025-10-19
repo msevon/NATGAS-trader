@@ -1,5 +1,5 @@
 """
-Hot or Cold Trading Bot
+NATGAS TRADER Bot
 
 A Python trading bot that trades natural gas ETFs using multiple data sources:
 - Weather forecasts for Heating Degree Days (HDD)
@@ -10,5 +10,5 @@ The bot combines these signals to make trading decisions through Alpaca API.
 """
 
 __version__ = "1.0.0"
-__author__ = "Hot or Cold Trading Bot"
+__author__ = "NATGAS TRADER Bot"
 __description__ = "Automated trading bot for natural gas ETFs"

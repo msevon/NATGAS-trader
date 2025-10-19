@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Hot or Cold Trading - main entry point
+# NATGAS TRADER - main entry point
 #
 # This bot trades natural gas ETFs (BOIL/KOLD) using multiple data sources:
 # - Weather forecasts for heating degree days (HDD)
@@ -29,7 +29,7 @@ from trading.alpaca_trader import AlpacaTrader
 from utils.trading_logger import TradingLogger
 from dashboard.dashboard import TradingDashboard
 
-class HotOrColdTradingBot:
+class NatGasTraderBot:
     # Main trading bot class
     
     def __init__(self, config: TradingConfig):
@@ -48,7 +48,7 @@ class HotOrColdTradingBot:
         # Initialize dashboard
         self.dashboard = TradingDashboard(config, self.trader, self.signal_processor)
         
-        self.logger.logger.info("Hot or Cold Trading Bot initialized")
+        self.logger.logger.info("NATGAS TRADER Bot initialized")
     
     def fetch_all_signals(self) -> tuple[float, float, float]:
         # Fetch all trading signals
@@ -157,10 +157,10 @@ def main():
             sys.exit(1)
         
         # Create and run bot
-        bot = HotOrColdTradingBot(config)
+        bot = NatGasTraderBot(config)
         
         # Start dashboard
-        print("Starting Hot or Cold Trading Bot Dashboard...")
+        print("Starting NATGAS TRADER Bot Dashboard...")
         print("Dashboard will be available at: http://127.0.0.1:5000")
         bot.dashboard.start_dashboard_thread()
         

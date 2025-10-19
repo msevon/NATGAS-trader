@@ -9,7 +9,7 @@ load_dotenv('config/config.env')
 
 @dataclass
 class TradingConfig:
-    # Configuration for the hot or cold trading bot
+    # Configuration for the NATGAS TRADER
     
     # Alpaca API Configuration
     alpaca_api_key: str = os.getenv('ALPACA_API_KEY', '')

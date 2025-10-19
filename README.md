@@ -1,4 +1,4 @@
-# Hot or Cold Trading
+# NATGAS TRADER
 
 A Python trading bot that trades natural gas ETFs (BOIL/KOLD) using multiple data sources including Yahoo Finance (for price data), EIA (for US natural gas storage data), NOAA (for storm alerts), and weather APIs (for heating degree days).
 

@@ -21,7 +21,7 @@ from dashboard.dashboard import TradingDashboard
 def main():
     """Start dashboard only"""
     try:
-        print("Starting Hot or Cold Trading Bot Dashboard...")
+        print("Starting NATGAS TRADER Dashboard...")
         print("Dashboard will be available at: http://127.0.0.1:5000")
         
         # Load configuration

@@ -1,4 +1,4 @@
-# Environment Variables for Hot or Cold Trading
+# Environment Variables for NATGAS TRADER
 
 # Alpaca API Credentials (Required)
 # Get these from https://app.alpaca.markets/paper/dashboard/overview

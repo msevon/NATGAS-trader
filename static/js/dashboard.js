@@ -1,4 +1,4 @@
-// Hot or Cold Trading Dashboard - JavaScript
+// NATGAS TRADER Dashboard - JavaScript
 
 class TradingDashboard {
         constructor() {
@@ -15,29 +15,29 @@ class TradingDashboard {
                 datasets: [{
                     label: 'Total Signal',
                     data: [],
-                    borderColor: '#00ff00',
-                    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                    borderColor: 'rgba(15, 124, 191)',  // Blue
+                    backgroundColor: 'rgba(15, 124, 191, 0.1)',
                     tension: 0.4,
                     fill: true
                 }, {
                     label: 'Temperature Signal',
                     data: [],
-                    borderColor: '#ff0000',
-                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                    borderColor: 'rgba(230, 56, 56)',   // Red
+                    backgroundColor: 'rgba(230, 56, 56, 0.1)',
                     tension: 0.4,
                     fill: false
                 }, {
                     label: 'Inventory Signal',
                     data: [],
-                    borderColor: '#00ff00',
-                    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                    borderColor: 'rgba(15, 124, 191)',  // Blue
+                    backgroundColor: 'rgba(15, 124, 191, 0.1)',
                     tension: 0.4,
                     fill: false
                 }, {
                     label: 'Storm Signal',
                     data: [],
-                    borderColor: '#ffff00',
-                    backgroundColor: 'rgba(255, 255, 0, 0.1)',
+                    borderColor: 'rgba(255, 165, 0)',   // Orange
+                    backgroundColor: 'rgba(255, 165, 0, 0.1)',
                     tension: 0.4,
                     fill: false
                 }]
@@ -48,8 +48,8 @@ class TradingDashboard {
                 datasets: [{
                     label: 'BOIL Price ($)',
                     data: [],
-                    borderColor: '#ff0000',
-                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                    borderColor: 'rgba(230, 56, 56)',   // Red for BOIL
+                    backgroundColor: 'rgba(230, 56, 56, 0.1)',
                     tension: 0.4,
                     fill: true
                 }]
@@ -60,8 +60,8 @@ class TradingDashboard {
                 datasets: [{
                     label: 'KOLD Price ($)',
                     data: [],
-                    borderColor: '#0000ff',
-                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    borderColor: 'rgba(15, 124, 191)',   // Blue for KOLD
+                    backgroundColor: 'rgba(15, 124, 191, 0.1)',
                     tension: 0.4,
                     fill: true
                 }]
@@ -72,8 +72,8 @@ class TradingDashboard {
                 datasets: [{
                     label: 'Natural Gas Storage (BCF)',
                     data: [],
-                    borderColor: '#00ff00',
-                    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                    borderColor: 'rgba(255, 255, 255)',   // White
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     tension: 0.4,
                     fill: true
                 }]
@@ -89,8 +89,8 @@ class TradingDashboard {
                 datasets: [{
                     label: 'Storm Alerts',
                     data: [],
-                    borderColor: '#ffff00',
-                    backgroundColor: 'rgba(255, 255, 0, 0.1)',
+                    borderColor: 'rgba(255, 165, 0)',   // Orange
+                    backgroundColor: 'rgba(255, 165, 0, 0.1)',
                     tension: 0.4,
                     fill: true
                 }]
@@ -911,32 +911,8 @@ class TradingDashboard {
     }
     
     addLog(level, message) {
-        const logsList = document.getElementById('logsListFull');
-        const logItem = document.createElement('div');
-        logItem.className = 'log-entry';
-        
-        const timestamp = new Date().toLocaleString();
-        const levelClass = level.toUpperCase();
-        
-        logItem.innerHTML = `
-            <span class="log-timestamp">${timestamp}</span>
-            <span class="log-level ${levelClass}">${levelClass}</span>
-            <span class="log-message">${message}</span>
-        `;
-        
-        if (logsList.firstChild && logsList.firstChild.classList && logsList.firstChild.classList.contains('no-logs')) {
-            logsList.innerHTML = '';
-        }
-        
-        logsList.appendChild(logItem);
-        
-        // Keep only last 100 logs
-        while (logsList.children.length > 100) {
-            logsList.removeChild(logsList.firstChild);
-        }
-        
-        // Auto-scroll to bottom
-        logsList.scrollTop = logsList.scrollHeight;
+        // Log functionality removed - no longer displaying logs in UI
+        console.log(`[${level.toUpperCase()}] ${message}`);
     }
     
     
@@ -956,32 +932,8 @@ class TradingDashboard {
     }
     
     updateLogs(logs) {
-        const logsList = document.getElementById('logsListFull');
-        
-        // Clear existing logs
-        logsList.innerHTML = '';
-        
-        if (logs.length === 0) {
-            logsList.innerHTML = '<div class="no-logs">No logs yet</div>';
-            return;
-        }
-        
-        // Add each log entry
-        logs.forEach(log => {
-            const logItem = document.createElement('div');
-            logItem.className = 'log-entry';
-            
-            logItem.innerHTML = `
-                <span class="log-timestamp">${log.timestamp}</span>
-                <span class="log-level ${log.level}">${log.level}</span>
-                <span class="log-message">${log.message}</span>
-            `;
-            
-            logsList.appendChild(logItem);
-        });
-        
-        // Auto-scroll to bottom
-        logsList.scrollTop = logsList.scrollHeight;
+        // Log functionality removed - no longer displaying logs in UI
+        console.log('Logs updated:', logs.length, 'entries');
     }
     
     setupEventListeners() {
@@ -1088,11 +1040,11 @@ class TradingDashboard {
         
         // Add regional HDD datasets with city names
         const colors = [
-            'rgba(255, 99, 132, 0.6)',   // Red
-            'rgba(75, 192, 192, 0.6)',   // Teal
-            'rgba(255, 205, 86, 0.6)',   // Yellow
-            'rgba(153, 102, 255, 0.6)',  // Purple
-            'rgba(255, 159, 64, 0.6)'   // Orange
+            'rgba(230, 56, 56, 0.6)',      // Red
+            'rgba(15, 124, 191, 0.6)',     // Blue
+            'rgba(255, 165, 0, 0.6)',      // Orange
+            'rgba(153, 102, 255, 0.6)',    // Purple
+            'rgba(255, 159, 64, 0.6)'      // Orange
         ];
         
         // Map coordinates to city names
@@ -1190,11 +1142,6 @@ function refreshPortfolio() {
             console.error('Error refreshing portfolio:', error);
             dashboard.addLog('error', `Failed to refresh portfolio: ${error.message}`);
         });
-}
-
-function clearLogs() {
-    document.getElementById('logsListFull').innerHTML = '<div class="no-logs">No logs yet</div>';
-    dashboard.addLog('info', 'Logs cleared');
 }
 
 // Initialize dashboard when page loads

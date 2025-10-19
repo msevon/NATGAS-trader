@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script for the Hot or Cold Trading Bot
+Setup script for the NATGAS TRADER
 
 This script helps set up the environment and configuration.
 """
@@ -44,7 +44,7 @@ def create_config_file():
         print("env_example.txt not found, creating basic config.env file")
         try:
             with open('config/config.env', 'w') as f:
-                f.write("# Hot or Cold Trading Configuration\n")
+                f.write("# NATGAS TRADER Configuration\n")
                 f.write("ALPACA_API_KEY=your_alpaca_api_key_here\n")
                 f.write("ALPACA_SECRET_KEY=your_alpaca_secret_key_here\n")
                 f.write("ALPACA_BASE_URL=https://paper-api.alpaca.markets\n")
@@ -69,7 +69,7 @@ def create_logs_directory():
 
 def main():
     """Main setup function"""
-    print("Hot or Cold Trading Bot Setup")
+    print("NATGAS TRADER Setup")
     print("=" * 30)
     
     success = True
