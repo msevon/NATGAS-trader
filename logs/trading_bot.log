@@ -7395,3 +7395,8 @@ jinja2.exceptions.TemplateNotFound: dashboard.html
 2025-10-19 19:56:32,452 - utils.trading_logger - INFO - Waiting 6 hours until next cycle
 2025-10-19 19:56:36,567 - dashboard.dashboard - INFO - Reading logs from: logs/trading_bot.log
 2025-10-19 20:00:15,802 - utils.trading_logger - INFO - Bot stopped by user
+2025-10-19 20:05:20,455 - trading.alpaca_trader - INFO - Connected to Alpaca. Account status: ACTIVE
+2025-10-19 20:05:20,455 - trading.alpaca_trader - INFO - Buying power: $66,894.68
+2025-10-19 20:05:20,734 - utils.trading_logger - INFO - Hot or Cold Trading Bot initialized
+2025-10-19 20:05:20,735 - dashboard.dashboard - INFO - Starting dashboard on http://127.0.0.1:5000
+2025-10-19 20:05:22,736 - dashboard.dashboard - INFO - Dashboard started at http://127.0.0.1:5000
