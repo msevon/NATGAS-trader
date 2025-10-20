@@ -3,6 +3,7 @@ import alpaca_trade_api as tradeapi
 from datetime import datetime
 from typing import Optional, Dict, List
 import time
+from strategies.strategy_manager import StrategyManager
 
 class AlpacaTrader:
     """Handles trading operations through Alpaca API"""
@@ -10,6 +11,9 @@ class AlpacaTrader:
     def __init__(self, config):
         self.config = config
         self.logger = logging.getLogger(__name__)
+        
+        # Initialize strategy manager
+        self.strategy_manager = StrategyManager(config)
         
         # Initialize Alpaca API
         self.api = tradeapi.REST(
@@ -126,41 +130,31 @@ class AlpacaTrader:
             return 1  # Fallback to 1 share
     
     def execute_trade(self, signal) -> Optional[Dict]:
-        """Execute trade based on signal"""
+        """Execute trade using the configured strategy manager"""
         try:
-            # Check current positions for both symbols
-            boil_position = self.get_current_position(self.config.symbol)  # BOIL
-            kold_position = self.get_current_position(self.config.inverse_symbol)  # KOLD
-            
-            account_info = self.get_account_info()
-            
-            self.logger.info(f"BOIL position: {boil_position}")
-            self.logger.info(f"KOLD position: {kold_position}")
-            self.logger.info(f"Account info: {account_info}")
-            
-            if signal.action == 'BUY':
-                # Close any existing positions first
-                if boil_position and boil_position['qty'] > 0:
-                    self.logger.info("Closing existing BOIL position")
-                    qty = int(abs(boil_position['qty']))
-                    self.place_market_order('sell', qty, self.config.symbol)
-                
-                if kold_position and kold_position['qty'] > 0:
-                    self.logger.info("Closing existing KOLD position")
-                    qty = int(abs(kold_position['qty']))
-                    self.place_market_order('sell', qty, self.config.inverse_symbol)
-                
-                # Place new order for the signal symbol
-                qty = self.calculate_order_quantity(signal.symbol)
-                return self.place_market_order('buy', qty, signal.symbol)
-                
-            else:  # HOLD
-                self.logger.info("Signal indicates HOLD, no action taken")
+            # Validate signal with strategy manager
+            if not self.strategy_manager.validate_signal(signal):
+                self.logger.warning("Signal validation failed, skipping trade")
                 return None
+            
+            # Execute trade using strategy manager
+            return self.strategy_manager.execute_trade(signal, self)
                 
         except Exception as e:
             self.logger.error(f"Error executing trade: {e}")
             return None
+    
+    def set_strategy(self, strategy_name: str) -> bool:
+        """Set the active trading strategy"""
+        return self.strategy_manager.set_strategy(strategy_name)
+    
+    def get_available_strategies(self) -> List[str]:
+        """Get list of available trading strategies"""
+        return self.strategy_manager.get_available_strategies()
+    
+    def get_strategy_performance(self) -> Dict:
+        """Get performance metrics for all strategies"""
+        return self.strategy_manager.get_strategy_performance()
     
     def get_portfolio_summary(self) -> Dict:
         """Get portfolio summary"""

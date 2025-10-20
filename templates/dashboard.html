@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="total-signal">
-                        <div class="total-label">Total Signal</div>
+                        <div class="total-label">Total Current Signal</div>
                         <div class="total-value" id="totalSignal">--</div>
                         <div class="action-badge" id="actionBadge">--</div>
                     </div>
@@ -133,12 +133,24 @@
                             <div class="config-value" id="configPositionSize">$1,000</div>
                         </div>
                         <div class="config-item">
-                            <div class="config-label">Buy Threshold</div>
+                            <div class="config-label">Bull Threshold</div>
                             <div class="config-value" id="configBuyThreshold">0.3</div>
                         </div>
                         <div class="config-item">
-                            <div class="config-label">Sell Threshold</div>
+                            <div class="config-label">Bear Threshold</div>
                             <div class="config-value" id="configSellThreshold">-0.3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Positions -->
+                <div class="card positions-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Current Positions</h3>
+                    </div>
+                    <div class="positions-content">
+                        <div id="positionsList">
+                            <div class="no-positions">Loading positions...</div>
                         </div>
                     </div>
                 </div>
@@ -146,29 +158,7 @@
 
             <!-- Right Side - Data Charts -->
             <div class="right-panel">
-                <!-- Signal Chart -->
-                <div class="card chart-card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-chart-area"></i> Signal History</h3>
-                        <div class="chart-subtitle">Trading Signal Components</div>
-                        <div class="time-period-selector">
-                            <button class="time-btn" data-period="1month">1 mo</button>
-                            <button class="time-btn" data-period="6months">6 mo</button>
-                            <button class="time-btn active" data-period="1year">1 yr</button>
-                            <button class="time-btn" data-period="3years">3 yr</button>
-                            <button class="time-btn" data-period="5years">5 yr</button>
-                            <button class="time-btn" data-period="all">max</button>
-                        </div>
-                    </div>
-                    <div class="chart-content">
-                        <div class="chart-loading" id="signalChartLoading" style="display: none;">
-                            <div class="loading-spinner"></div>
-                            <div class="loading-text">Loading data...</div>
-                        </div>
-                        <canvas id="signalChart"></canvas>
-                    </div>
-                </div>
-                
+                <!-- BOIL Price Data -->
                 <div class="card chart-card">
                     <div class="card-header">
                         <h3><i class="fas fa-chart-line"></i> BOIL Price Data</h3>

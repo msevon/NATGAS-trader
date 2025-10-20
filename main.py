@@ -118,8 +118,8 @@ class NatGasTraderBot:
             self.logger.log_error(e, "Trading cycle")
             return False
     
-    def run_continuous(self, interval_hours: int = 6):
-        """Run the bot continuously with specified interval"""
+    def run_continuous(self, interval_hours: int = 24):
+        """Run the bot continuously with specified interval (once per day by default)"""
         self.logger.logger.info(f"Starting continuous trading with {interval_hours}h intervals")
         
         while True:
@@ -185,14 +185,14 @@ def main():
                     print("\nDashboard stopped")
             else:
                 print("Usage: python main.py [once|continuous|dashboard] [interval_hours]")
-                print("Default: Continuous trading every 6 hours with dashboard")
+                print("Default: Continuous trading once per day with dashboard")
                 sys.exit(1)
         else:
-            # Default: run continuously with dashboard (every 6 hours)
-            print("Starting continuous trading mode (every 6 hours)")
+            # Default: run continuously with dashboard (once per day)
+            print("Starting continuous trading mode (once per day)")
             print("Dashboard available at: http://127.0.0.1:5000")
             print("Press Ctrl+C to stop the bot")
-            bot.run_continuous(6)
+            bot.run_continuous(24)
             
     except Exception as e:
         print(f"Fatal error: {e}")

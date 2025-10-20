@@ -553,6 +553,20 @@ class TradingDashboard:
             except Exception as e:
                 self.logger.error(f"Error getting logs: {e}")
                 return jsonify({'error': str(e)})
+        
+        @self.app.route('/api/strategy', methods=['GET', 'POST'])
+        def strategy_endpoint():
+            if request.method == 'GET':
+                # Get current strategy info
+                return jsonify(self.trader.get_strategy_info())
+            elif request.method == 'POST':
+                # Switch strategy
+                data = request.get_json()
+                strategy_name = data.get('strategy')
+                if strategy_name:
+                    success = self.trader.set_strategy(strategy_name)
+                    return jsonify({'success': success, 'strategy': strategy_name})
+                return jsonify({'success': False, 'error': 'No strategy specified'})
     
     def _setup_socket_events(self):
         # Setup SocketIO events

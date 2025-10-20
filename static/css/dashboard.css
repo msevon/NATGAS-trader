@@ -144,28 +144,9 @@ body {
 .card {
     background: var(--bg-secondary);
     border-radius: 12px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
+    border: 2px solid rgba(15, 124, 191, 0.8);
     box-shadow: var(--shadow);
     overflow: hidden;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(15, 124, 191, 0.8), rgba(230, 56, 56, 0.8));
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    z-index: -1;
 }
 
 .card-header {
@@ -214,6 +195,81 @@ body {
 /* Signal Card */
 .signal-card {
     grid-column: span 2;
+}
+
+/* Positions Card */
+.positions-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 2px solid rgba(15, 124, 191, 0.8);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.positions-content {
+    padding: 1.5rem;
+}
+
+.position-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.position-item:last-child {
+    border-bottom: none;
+}
+
+.position-info {
+    flex: 1;
+}
+
+.position-symbol {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.position-details {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.position-price {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--accent-primary);
+}
+
+.position-value {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.position-pl {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.position-pl.positive {
+    color: var(--accent-success);
+}
+
+.position-pl.negative {
+    color: var(--accent-danger);
+}
+
+.no-positions {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 2rem 0;
 }
 
 .signal-grid {
@@ -322,6 +378,16 @@ body {
 
 .action-badge.sell {
     background: var(--accent-danger);
+    color: white;
+}
+
+.action-badge.bull {
+    background: var(--accent-danger);  /* Red for BOIL (bullish natural gas) */
+    color: white;
+}
+
+.action-badge.bear {
+    background: var(--accent-primary);  /* Blue for KOLD (bearish natural gas) */
     color: white;
 }
 

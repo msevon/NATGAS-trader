@@ -4,44 +4,6 @@ class TradingDashboard {
         constructor() {
             this.socket = null;
             this.signalChart = null;
-            this.boilChart = null;
-            this.koldChart = null;
-            this.storageChart = null;
-            this.temperatureChart = null;
-            this.stormChart = null;
-            
-            this.chartData = {
-                labels: [],
-                datasets: [{
-                    label: 'Total Signal',
-                    data: [],
-                    borderColor: 'rgba(15, 124, 191)',  // Blue
-                    backgroundColor: 'rgba(15, 124, 191, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                }, {
-                    label: 'Temperature Signal',
-                    data: [],
-                    borderColor: 'rgba(230, 56, 56)',   // Red
-                    backgroundColor: 'rgba(230, 56, 56, 0.1)',
-                    tension: 0.4,
-                    fill: false
-                }, {
-                    label: 'Inventory Signal',
-                    data: [],
-                    borderColor: 'rgba(15, 124, 191)',  // Blue
-                    backgroundColor: 'rgba(15, 124, 191, 0.1)',
-                    tension: 0.4,
-                    fill: false
-                }, {
-                    label: 'Storm Signal',
-                    data: [],
-                    borderColor: 'rgba(255, 165, 0)',   // Orange
-                    backgroundColor: 'rgba(255, 165, 0, 0.1)',
-                    tension: 0.4,
-                    fill: false
-                }]
-            };
             
             this.boilData = {
                 labels: [],
@@ -115,6 +77,20 @@ class TradingDashboard {
         // Load initial logs
         this.loadLogs();
         
+        // Update strategy info
+        this.updateStrategyInfo();
+        
+        // Load positions (with delay to ensure DOM is ready)
+        setTimeout(() => {
+            this.loadPositions();
+        }, 100);
+        
+        // Make loadPositions available globally for debugging
+        window.testPositions = () => {
+            console.log('Manual test of loadPositions');
+            this.loadPositions();
+        };
+        
         // Set up log refresh interval
         this.logRefreshInterval = setInterval(() => {
             this.loadLogs();
@@ -155,47 +131,6 @@ class TradingDashboard {
     }
     
         initChart() {
-            const ctx = document.getElementById('signalChart').getContext('2d');
-            this.signalChart = new Chart(ctx, {
-                type: 'line',
-                data: this.chartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ffffff'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: '#b0b0b0'
-                            },
-                            grid: {
-                                color: '#333333'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: '#b0b0b0'
-                            },
-                            grid: {
-                                color: '#333333'
-                            }
-                        }
-                    },
-                    elements: {
-                        point: {
-                            radius: 3,
-                            hoverRadius: 6
-                        }
-                    }
-                }
-            });
-            
             // Initialize BOIL Chart
             const boilCtx = document.getElementById('boilChart').getContext('2d');
             this.boilChart = new Chart(boilCtx, {
@@ -417,22 +352,144 @@ class TradingDashboard {
         this.loadChartData();
     }
     
-        loadChartData() {
-            // Load BOIL data with current time period
-            this.loadBoilData();
+    // Strategy management
+    switchStrategy() {
+        const selector = document.getElementById('strategySelector');
+        const strategy = selector.value;
+        
+        fetch('/api/strategy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ strategy: strategy })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(`Strategy switched to: ${strategy}`);
+                // Update UI to reflect strategy change
+                this.updateStrategyInfo();
+            } else {
+                console.error('Failed to switch strategy:', data.error);
+                alert(`Failed to switch strategy: ${data.error}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error switching strategy:', error);
+            alert('Error switching strategy');
+        });
+    }
+    
+    updateStrategyInfo() {
+        fetch('/api/strategy')
+        .then(response => response.json())
+        .then(data => {
+            // Update strategy selector to reflect current strategy
+            const selector = document.getElementById('strategySelector');
+            if (selector && data.strategy_name) {
+                selector.value = data.strategy_name;
+            }
             
-            // Load KOLD data with current time period
-            this.loadKoldData();
-            
-            // Load storage data with current time period
-            this.loadStorageData();
-            
-            // Load temperature data
-            this.loadTemperatureData();
-            
-            // Load storm data
-            this.loadStormData();
+            // Log strategy info
+            console.log('Current strategy:', data.strategy_name);
+            console.log('Strategy description:', data.description);
+        })
+        .catch(error => {
+            console.error('Error getting strategy info:', error);
+        });
+    }
+    
+    // Positions management
+    loadPositions() {
+        console.log('Loading positions...');
+        
+        // Simple fallback - just show a basic message first
+        const positionsList = document.getElementById('positionsList');
+        if (positionsList) {
+            positionsList.innerHTML = '<div class="no-positions">Loading positions...</div>';
         }
+        
+        fetch('/api/portfolio')
+        .then(response => {
+            console.log('Portfolio API response:', response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Portfolio data received:', data);
+            if (data && data.positions) {
+                this.updatePositions(data.positions);
+            } else {
+                console.log('No positions data found');
+                this.updatePositions([]);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading positions:', error);
+            this.updatePositions([]);
+        });
+    }
+    
+    updatePositions(positions) {
+        console.log('updatePositions called with:', positions);
+        
+        const positionsList = document.getElementById('positionsList');
+        if (!positionsList) {
+            console.error('Positions list element not found');
+            return;
+        }
+        
+        console.log('Updating positions:', positions);
+        
+        if (!positions || positions.length === 0) {
+            positionsList.innerHTML = '<div class="no-positions">No positions</div>';
+            console.log('No positions to display');
+            return;
+        }
+        
+        try {
+            // Simple test - just show basic info first
+            let positionsHTML = '<div style="color: white; padding: 10px;">';
+            positionsHTML += `<h4>Found ${positions.length} positions:</h4>`;
+            
+            positions.forEach((position, index) => {
+                console.log(`Processing position ${index}:`, position);
+                positionsHTML += `<div style="margin: 10px 0; padding: 10px; border: 1px solid #333;">`;
+                positionsHTML += `<strong>${position.symbol}</strong><br>`;
+                positionsHTML += `Quantity: ${position.qty}<br>`;
+                positionsHTML += `Value: $${position.market_value}<br>`;
+                positionsHTML += `P&L: $${position.unrealized_pl}<br>`;
+                positionsHTML += `</div>`;
+            });
+            
+            positionsHTML += '</div>';
+            positionsList.innerHTML = positionsHTML;
+            console.log('Positions updated successfully');
+        } catch (error) {
+            console.error('Error updating positions:', error);
+            positionsList.innerHTML = '<div class="no-positions">Error loading positions: ' + error.message + '</div>';
+        }
+    }
+    
+    loadChartData() {
+        // Load BOIL data with current time period
+        this.loadBoilData();
+        
+        // Load KOLD data with current time period
+        this.loadKoldData();
+        
+        // Load storage data with current time period
+        this.loadStorageData();
+        
+        // Load temperature data
+        this.loadTemperatureData();
+        
+        // Load storm data
+        this.loadStormData();
+    }
     
         loadStorageData() {
             // Show loading animation
@@ -554,7 +611,7 @@ class TradingDashboard {
                     if (data.error) {
                         console.error('Error loading historical signals:', data.error);
                     } else {
-                        this.updateSignalChart(data);
+                        // Signal chart removed - no longer updating
                     }
                 })
                 .catch(error => {
@@ -570,7 +627,7 @@ class TradingDashboard {
                     if (data.error) {
                         console.error('Error loading historical signals:', data.error);
                     } else {
-                        this.updateSignalChart(data);
+                        // Signal chart removed - no longer updating
                     }
                 })
                 .catch(error => {
@@ -694,18 +751,16 @@ class TradingDashboard {
     showLoading() {
         this.isLoading = true;
         
-        // Show loading for all six charts
+        // Show loading for all charts except signal chart
         const storageLoading = document.getElementById('storageChartLoading');
         const boilLoading = document.getElementById('boilChartLoading');
         const koldLoading = document.getElementById('koldChartLoading');
-        const signalLoading = document.getElementById('signalChartLoading');
         const temperatureLoading = document.getElementById('temperatureChartLoading');
         const stormLoading = document.getElementById('stormChartLoading');
         
         if (storageLoading) storageLoading.style.display = 'flex';
         if (boilLoading) boilLoading.style.display = 'flex';
         if (koldLoading) koldLoading.style.display = 'flex';
-        if (signalLoading) signalLoading.style.display = 'flex';
         if (temperatureLoading) temperatureLoading.style.display = 'flex';
         if (stormLoading) stormLoading.style.display = 'flex';
         
@@ -718,18 +773,16 @@ class TradingDashboard {
     hideLoading() {
         this.isLoading = false;
         
-        // Hide loading for all six charts
+        // Hide loading for all charts except signal chart
         const storageLoading = document.getElementById('storageChartLoading');
         const boilLoading = document.getElementById('boilChartLoading');
         const koldLoading = document.getElementById('koldChartLoading');
-        const signalLoading = document.getElementById('signalChartLoading');
         const temperatureLoading = document.getElementById('temperatureChartLoading');
         const stormLoading = document.getElementById('stormChartLoading');
         
         if (storageLoading) storageLoading.style.display = 'none';
         if (boilLoading) boilLoading.style.display = 'none';
         if (koldLoading) koldLoading.style.display = 'none';
-        if (signalLoading) signalLoading.style.display = 'none';
         if (temperatureLoading) temperatureLoading.style.display = 'none';
         if (stormLoading) stormLoading.style.display = 'none';
         
@@ -744,7 +797,7 @@ class TradingDashboard {
         if (data.signals && data.signals.length > 0) {
             const latestSignal = data.signals[data.signals.length - 1];
             this.updateSignals(latestSignal);
-            this.updateChart(data.signals);
+            // Signal chart removed - no longer updating
         }
         
         // Update data charts
@@ -788,11 +841,19 @@ class TradingDashboard {
         document.getElementById('stormSignal').textContent = signal.storm_signal.toFixed(3);
         document.getElementById('totalSignal').textContent = signal.total_signal.toFixed(3);
         
-        // Update action badge with symbol information
+        // Update action badge with BULL/BEAR terminology
         const actionBadge = document.getElementById('actionBadge');
         if (signal.action === 'BUY' && signal.symbol) {
-            actionBadge.textContent = `BUY ${signal.symbol}`;
-            actionBadge.className = `action-badge ${signal.symbol === 'BOIL' ? 'buy' : 'sell'}`;
+            if (signal.symbol === 'BOIL') {
+                actionBadge.textContent = 'BULL';
+                actionBadge.className = 'action-badge bull';
+            } else if (signal.symbol === 'KOLD') {
+                actionBadge.textContent = 'BEAR';
+                actionBadge.className = 'action-badge bear';
+            } else {
+                actionBadge.textContent = `BUY ${signal.symbol}`;
+                actionBadge.className = 'action-badge buy';
+            }
         } else {
             actionBadge.textContent = signal.action;
             actionBadge.className = `action-badge ${signal.action.toLowerCase()}`;
@@ -815,44 +876,19 @@ class TradingDashboard {
     
     updateSignalBoundaries() {
         // Update threshold values from config (these would come from the backend)
-        const buyThreshold = 0.3;
-        const sellThreshold = -0.3;
+        const bullThreshold = 0.3;
+        const bearThreshold = -0.3;
         
         // Update threshold displays if elements exist
-        const buyBoilElement = document.getElementById('buyBoilThreshold');
-        const buyKoldElement = document.getElementById('buyKoldThreshold');
         const configBuyElement = document.getElementById('configBuyThreshold');
         const configSellElement = document.getElementById('configSellThreshold');
         
-        if (buyBoilElement) {
-            buyBoilElement.textContent = `≥ ${buyThreshold}`;
-        }
-        if (buyKoldElement) {
-            buyKoldElement.textContent = `≤ ${sellThreshold}`;
-        }
         if (configBuyElement) {
-            configBuyElement.textContent = buyThreshold;
+            configBuyElement.textContent = bullThreshold;
         }
         if (configSellElement) {
-            configSellElement.textContent = sellThreshold;
+            configSellElement.textContent = bearThreshold;
         }
-    }
-    
-    updateChart(signals) {
-        if (signals.length === 0) return;
-        
-        // Keep only last 50 data points
-        const recentSignals = signals.slice(-50);
-        
-        this.chartData.labels = recentSignals.map(s => 
-            new Date(s.timestamp).toLocaleTimeString()
-        );
-        this.chartData.datasets[0].data = recentSignals.map(s => s.total_signal);
-        this.chartData.datasets[1].data = recentSignals.map(s => s.temperature_signal);
-        this.chartData.datasets[2].data = recentSignals.map(s => s.inventory_signal);
-        this.chartData.datasets[3].data = recentSignals.map(s => s.storm_signal);
-        
-        this.signalChart.update();
     }
     
     updatePortfolio(portfolio) {
@@ -949,6 +985,7 @@ class TradingDashboard {
         // Auto-refresh portfolio every 30 seconds
         setInterval(() => {
             this.refreshPortfolio();
+            this.loadPositions(); // Also refresh positions
         }, 30000);
         
         // Request update every 10 seconds
@@ -993,24 +1030,6 @@ class TradingDashboard {
         this.koldChart.data.labels = labels;
         this.koldChart.data.datasets[0].data = values;
         this.koldChart.update();
-    }
-    
-    updateSignalChart(signalData) {
-        if (!this.signalChart || !signalData) return;
-        
-        // Process historical signal data
-        const labels = signalData.map(item => new Date(item.timestamp).toLocaleDateString());
-        const totalSignals = signalData.map(item => item.total_signal);
-        const tempSignals = signalData.map(item => item.temperature_signal);
-        const inventorySignals = signalData.map(item => item.inventory_signal);
-        const stormSignals = signalData.map(item => item.storm_signal);
-        
-        this.signalChart.data.labels = labels;
-        this.signalChart.data.datasets[0].data = totalSignals;
-        this.signalChart.data.datasets[1].data = tempSignals;
-        this.signalChart.data.datasets[2].data = inventorySignals;
-        this.signalChart.data.datasets[3].data = stormSignals;
-        this.signalChart.update();
     }
     
     updateTemperatureChart(temperatureData) {
