@@ -1,3 +1,4 @@
+# Provides centralized logging functionality for trading operations and system events.
 import logging
 import json
 from datetime import datetime

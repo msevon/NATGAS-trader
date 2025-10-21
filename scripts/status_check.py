@@ -1,11 +1,4 @@
-#!/usr/bin/env python3
-"""
-Quick status check for the NATGAS TRADER
-
-This script shows the current portfolio status and recent signals.
-"""
-
-import sys
+# Checks the status of the trading bot and displays current portfolio and system information.
 import os
 
 # Add src and config directories to Python path
@@ -17,8 +10,8 @@ from config import TradingConfig
 from trading.alpaca_trader import AlpacaTrader
 from utils.trading_logger import TradingLogger
 
-def main():
-    """Check current status"""
+    # Check current status
+    def main(self):
     try:
         config = TradingConfig()
         logger = TradingLogger(config)

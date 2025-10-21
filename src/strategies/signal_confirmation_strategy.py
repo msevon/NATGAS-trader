@@ -1,6 +1,7 @@
+# Confirms trading signals by requiring multiple consecutive days of the same signal before executing trades.
+
 import logging
 from typing import Optional, Dict, List
-from datetime import datetime, timedelta
 
 class SignalConfirmationStrategy:
     """

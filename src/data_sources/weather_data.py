@@ -1,9 +1,8 @@
+# Fetches weather data and calculates heating degree days for temperature-based trading signals.
+
 import logging
 import requests
-import pandas as pd
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
-import json
+from typing import Optional, Dict
 
 class WeatherDataFetcher:
     """Fetches weather data and calculates Heating Degree Days (HDD)"""

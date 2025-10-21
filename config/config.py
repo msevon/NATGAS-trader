@@ -1,3 +1,4 @@
+# Configuration management for the trading bot including API keys and trading parameters.
 import os
 import logging
 from dataclasses import dataclass
@@ -22,6 +23,19 @@ class TradingConfig:
     position_size: float = 1000.0  # Dollar amount per trade
     buy_threshold: float = 0.3  # Signal threshold to buy
     sell_threshold: float = -0.3  # Signal threshold to sell
+    
+    # Backtesting Parameters
+    initial_capital: float = 100000.0  # Initial capital for backtesting
+    base_position_size: float = 1000.0  # Base position size
+    max_position_size: float = 5000.0  # Maximum position size
+    min_position_size: float = 100.0   # Minimum position size
+    commission_per_trade: float = 1.0  # Commission per trade
+    slippage_pct: float = 0.001       # Slippage percentage
+    
+    # Risk Management Parameters
+    default_stop_loss_pct: float = 0.05  # Default stop loss percentage
+    trailing_stop_pct: float = 0.03       # Trailing stop percentage
+    take_profit_pct: float = 0.15        # Take profit percentage
     
     # Signal Weights
     temperature_weight: float = 0.5

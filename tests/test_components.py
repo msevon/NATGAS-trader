@@ -1,11 +1,4 @@
-#!/usr/bin/env python3
-"""
-Test script for the NATGAS TRADER
-
-This script tests individual components without making actual trades.
-"""
-
-import sys
+# Unit tests for various components of the trading bot to ensure functionality and reliability.
 import os
 
 # Add src and config directories to Python path
@@ -19,8 +12,8 @@ from data_sources.eia_data import EIADataFetcher
 from data_sources.noaa_data import NOAADataFetcher
 from signals.signal_processor import SignalProcessor
 
-def test_weather_data():
-    """Test weather data fetching"""
+    # Test weather data fetching
+    def test_weather_data(self):
     print("Testing Weather Data Fetching...")
     config = TradingConfig()
     weather_fetcher = WeatherDataFetcher(config)
@@ -29,8 +22,8 @@ def test_weather_data():
     print(f"Weather signal: {signal:.3f}")
     return signal
 
-def test_eia_data():
-    """Test EIA data fetching"""
+    # Test EIA data fetching
+    def test_eia_data(self):
     print("\nTesting EIA Data Fetching...")
     config = TradingConfig()
     eia_fetcher = EIADataFetcher(config)
@@ -39,8 +32,8 @@ def test_eia_data():
     print(f"Inventory signal: {signal:.3f}")
     return signal
 
-def test_noaa_data():
-    """Test NOAA data fetching"""
+    # Test NOAA data fetching
+    def test_noaa_data(self):
     print("\nTesting NOAA Data Fetching...")
     config = TradingConfig()
     noaa_fetcher = NOAADataFetcher(config)
@@ -49,8 +42,8 @@ def test_noaa_data():
     print(f"Storm signal: {signal:.3f}")
     return signal
 
-def test_signal_processing():
-    """Test signal processing"""
+    # Test signal processing
+    def test_signal_processing(self):
     print("\nTesting Signal Processing...")
     config = TradingConfig()
     processor = SignalProcessor(config)
@@ -73,8 +66,8 @@ def test_signal_processing():
     
     return trading_signal
 
-def main():
-    """Run all tests"""
+    # Run all tests
+    def main(self):
     print("NATGAS TRADER - Component Tests")
     print("=" * 50)
     

@@ -1,12 +1,4 @@
-#!/usr/bin/env python3
-# NATGAS TRADER - main entry point
-#
-# This bot trades natural gas ETFs (BOIL/KOLD) using multiple data sources:
-# - Weather forecasts for heating degree days (HDD)
-# - EIA natural gas storage data
-# - NOAA storm/disruption alerts
-#
-# The bot combines these signals to make trading decisions through Alpaca API.
+# Main entry point for the natural gas trading bot that executes trades based on weather, inventory, and storm signals.
 
 import sys
 import os

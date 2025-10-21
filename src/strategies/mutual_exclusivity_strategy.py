@@ -1,8 +1,4 @@
-# Mutual Exclusivity Trading Strategy
-#
-# This strategy ensures that only one of BOIL or KOLD positions can be held at a time.
-# When buying BOIL, all KOLD positions are sold first.
-# When buying KOLD, all BOIL positions are sold first.
+# Ensures mutual exclusivity between BOIL and KOLD positions by closing opposite positions before opening new ones.
 
 import logging
 from typing import Optional, Dict, List

@@ -1,3 +1,4 @@
+# Implements the unified trading strategy that combines signals and manages position sizing and risk.
 import logging
 from typing import Optional, Dict, List
 from datetime import datetime, timedelta

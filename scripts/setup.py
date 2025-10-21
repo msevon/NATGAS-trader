@@ -1,16 +1,9 @@
-#!/usr/bin/env python3
-"""
-Setup script for the NATGAS TRADER
-
-This script helps set up the environment and configuration.
-"""
-
-import os
+# Setup script for installing dependencies and configuring the trading bot environment.
 import sys
 import subprocess
 
-def install_dependencies():
-    """Install required dependencies"""
+    # Install required dependencies
+    def install_dependencies(self):
     print("Installing dependencies...")
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
@@ -20,8 +13,8 @@ def install_dependencies():
         print(f"Failed to install dependencies: {e}")
         return False
 
-def create_config_file():
-    """Create config.env file from template"""
+    # Create config.env file from template
+    def create_config_file(self):
     if os.path.exists('config/config.env'):
         print("config.env file already exists, skipping creation")
         return True
@@ -57,8 +50,8 @@ def create_config_file():
             print(f"Failed to create config.env file: {e}")
             return False
 
-def create_logs_directory():
-    """Create logs directory"""
+    # Create logs directory
+    def create_logs_directory(self):
     try:
         os.makedirs('logs', exist_ok=True)
         print("Logs directory created")
@@ -67,8 +60,8 @@ def create_logs_directory():
         print(f"Failed to create logs directory: {e}")
         return False
 
-def main():
-    """Main setup function"""
+    # Main setup function
+    def main(self):
     print("NATGAS TRADER Setup")
     print("=" * 30)
     

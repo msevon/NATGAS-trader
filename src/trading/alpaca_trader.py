@@ -1,3 +1,4 @@
+# Executes trades through the Alpaca API and manages live trading operations.
 import logging
 import alpaca_trade_api as tradeapi
 from datetime import datetime

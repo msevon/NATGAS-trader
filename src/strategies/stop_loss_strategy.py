@@ -1,3 +1,4 @@
+# Implements stop loss and take profit mechanisms to protect trading positions from excessive losses.
 import logging
 from typing import Optional, Dict, List
 from datetime import datetime, timedelta

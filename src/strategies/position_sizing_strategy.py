@@ -1,3 +1,4 @@
+# Calculates optimal position sizes based on signal strength and portfolio risk management.
 import logging
 from typing import Optional, Dict
 import math

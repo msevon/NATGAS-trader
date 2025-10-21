@@ -1,8 +1,1 @@
-"""
-Trading module for executing trades and managing positions.
-
-This module contains classes for:
-- Alpaca API integration
-- Trade execution
-- Portfolio management
-"""
+# Trading execution modules for handling live trading operations through broker APIs.

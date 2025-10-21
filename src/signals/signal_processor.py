@@ -1,3 +1,4 @@
+# Processes and combines trading signals from multiple data sources to generate buy/sell decisions.
 import logging
 from datetime import datetime, timedelta
 from typing import Dict, Optional, Tuple, List

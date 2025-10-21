@@ -1,3 +1,4 @@
+# Manages and coordinates multiple trading strategies and their execution.
 import logging
 from typing import Optional, Dict, List
 from datetime import datetime

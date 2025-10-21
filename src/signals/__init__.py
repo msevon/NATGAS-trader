@@ -1,5 +1,1 @@
-"""
-Signal processing module.
-
-This module contains classes for processing and combining trading signals.
-"""
+# Signal processing modules for combining and analyzing trading signals from multiple data sources.

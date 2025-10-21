@@ -1,3 +1,4 @@
+# Fetches storm and weather alert data from NOAA API for disruption-based trading signals.
 import logging
 import requests
 import json
@@ -37,12 +38,18 @@ class NOAADataFetcher:
                         'storm', 'winter', 'blizzard', 'ice', 'freeze', 
                         'hurricane', 'tornado', 'severe'
                     ]):
+                        # Get effective time or use current time as fallback
+                        effective_time = properties.get('effective')
+                        if not effective_time:
+                            effective_time = datetime.now().isoformat()
+                        
                         alerts.append({
+                            'timestamp': effective_time,
                             'event': properties.get('event', ''),
                             'severity': properties.get('severity', ''),
                             'urgency': properties.get('urgency', ''),
                             'description': properties.get('description', ''),
-                            'effective': properties.get('effective', ''),
+                            'effective': effective_time,
                             'expires': properties.get('expires', ''),
                             'location': properties.get('areaDesc', 'Unknown Location'),
                             'state': properties.get('state', 'Unknown State')
@@ -67,6 +74,7 @@ class NOAADataFetcher:
         import random
         if random.random() < 0.3:  # 30% chance of storm alert
             return [{
+                'timestamp': datetime.now().isoformat(),
                 'event': 'Winter Storm Warning',
                 'severity': 'Moderate',
                 'urgency': 'Expected',

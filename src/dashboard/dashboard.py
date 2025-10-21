@@ -1,12 +1,4 @@
-# Dashboard module for the NATGAS TRADER
-#
-# This module provides a real-time web dashboard to monitor:
-# - Trading signals and data
-# - Portfolio status
-# - Trade history
-# - System logs
-
-import json
+# Provides a web-based dashboard for monitoring trading bot performance and portfolio status.
 import threading
 import time
 import os

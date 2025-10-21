@@ -1,11 +1,11 @@
+# Fetches natural gas storage data from the EIA API for trading signal generation.
+
 import logging
 import requests
 import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional
-import json
 import io
+from datetime import datetime, timedelta
+from typing import Optional
 
 class EIADataFetcher:
     """Fetches natural gas storage data from EIA API"""

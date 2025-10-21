@@ -1,11 +1,4 @@
-#!/usr/bin/env python3
-"""
-Dashboard Test Script
-
-This script starts only the dashboard for testing purposes.
-"""
-
-import sys
+# Starts the web dashboard server for monitoring trading bot performance and portfolio status.
 import os
 import time
 
@@ -18,8 +11,8 @@ from trading.alpaca_trader import AlpacaTrader
 from signals.signal_processor import SignalProcessor
 from dashboard.dashboard import TradingDashboard
 
-def main():
-    """Start dashboard only"""
+    # Start dashboard only
+    def main(self):
     try:
         print("Starting NATGAS TRADER Dashboard...")
         print("Dashboard will be available at: http://127.0.0.1:5000")
