@@ -171,9 +171,13 @@ class AlpacaTrader:
             }
             
             for position in positions:
+                # Calculate current price from market value and quantity
+                current_price = float(position.market_value) / float(position.qty) if float(position.qty) != 0 else 0
+                
                 portfolio['positions'].append({
                     'symbol': position.symbol,
                     'qty': float(position.qty),
+                    'current_price': current_price,
                     'market_value': float(position.market_value),
                     'unrealized_pl': float(position.unrealized_pl),
                     'unrealized_plpc': float(position.unrealized_plpc)

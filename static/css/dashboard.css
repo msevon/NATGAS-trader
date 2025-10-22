@@ -831,3 +831,153 @@ body {
     padding: 2rem;
     font-family: 'Play', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* Positions Table Styles */
+.positions-table-container {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.positions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.positions-table th {
+    background: var(--accent-primary);
+    color: var(--text-primary);
+    padding: 0.75rem 0.5rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.positions-table td {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.positions-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.positions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.positions-table .no-positions {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 2rem;
+}
+
+.position-ticker {
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.position-quantity {
+    font-weight: 500;
+}
+
+.position-price {
+    font-weight: 500;
+}
+
+.position-value {
+    font-weight: 600;
+}
+
+.position-pl {
+    font-weight: 600;
+}
+
+.position-pl.positive {
+    color: var(--accent-success);
+}
+
+.position-pl.negative {
+    color: var(--accent-danger);
+}
+
+.position-pl-percent {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.position-pl-percent.positive {
+    color: var(--accent-success);
+}
+
+.position-pl-percent.negative {
+    color: var(--accent-danger);
+}
+
+.positions-summary {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border-top: 2px solid var(--accent-primary);
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.summary-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.summary-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.summary-value.positive {
+    color: var(--accent-success);
+}
+
+.summary-value.negative {
+    color: var(--accent-danger);
+}
+
+/* Responsive adjustments for positions table */
+@media (max-width: 768px) {
+    .positions-table th,
+    .positions-table td {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.8rem;
+    }
+    
+    .positions-table th {
+        font-size: 0.75rem;
+    }
+    
+    .positions-summary {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .summary-item {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

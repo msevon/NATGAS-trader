@@ -436,41 +436,79 @@ class TradingDashboard {
     updatePositions(positions) {
         console.log('updatePositions called with:', positions);
         
-        const positionsList = document.getElementById('positionsList');
-        if (!positionsList) {
-            console.error('Positions list element not found');
+        const positionsTableBody = document.getElementById('positionsTableBody');
+        const totalPositionsElement = document.getElementById('totalPositions');
+        const totalUnrealizedPLElement = document.getElementById('totalUnrealizedPL');
+        const positionsUpdateElement = document.getElementById('positionsUpdate');
+        
+        if (!positionsTableBody) {
+            console.error('Positions table body element not found');
             return;
         }
         
         console.log('Updating positions:', positions);
         
+        // Update last update time
+        if (positionsUpdateElement) {
+            positionsUpdateElement.textContent = `Last update: ${new Date().toLocaleTimeString()}`;
+        }
+        
         if (!positions || positions.length === 0) {
-            positionsList.innerHTML = '<div class="no-positions">No positions</div>';
+            positionsTableBody.innerHTML = '<tr><td colspan="6" class="no-positions">No positions</td></tr>';
+            if (totalPositionsElement) totalPositionsElement.textContent = '0';
+            if (totalUnrealizedPLElement) totalUnrealizedPLElement.textContent = '$0.00';
             console.log('No positions to display');
             return;
         }
         
         try {
-            // Simple test - just show basic info first
-            let positionsHTML = '<div style="color: white; padding: 10px;">';
-            positionsHTML += `<h4>Found ${positions.length} positions:</h4>`;
+            let totalUnrealizedPL = 0;
+            let positionsHTML = '';
             
             positions.forEach((position, index) => {
                 console.log(`Processing position ${index}:`, position);
-                positionsHTML += `<div style="margin: 10px 0; padding: 10px; border: 1px solid #333;">`;
-                positionsHTML += `<strong>${position.symbol}</strong><br>`;
-                positionsHTML += `Quantity: ${position.qty}<br>`;
-                positionsHTML += `Value: $${position.market_value}<br>`;
-                positionsHTML += `P&L: $${position.unrealized_pl}<br>`;
-                positionsHTML += `</div>`;
+                
+                const symbol = position.symbol || 'N/A';
+                const quantity = position.qty || 0;
+                const currentPrice = position.current_price || position.market_value / quantity || 0;
+                const marketValue = position.market_value || 0;
+                const unrealizedPL = position.unrealized_pl || 0;
+                const unrealizedPLPercent = position.unrealized_plpc || 0;
+                
+                totalUnrealizedPL += unrealizedPL;
+                
+                const plClass = unrealizedPL >= 0 ? 'positive' : 'negative';
+                const plPercentClass = unrealizedPLPercent >= 0 ? 'positive' : 'negative';
+                
+                positionsHTML += `
+                    <tr>
+                        <td class="position-ticker">${symbol}</td>
+                        <td class="position-quantity">${quantity.toLocaleString()}</td>
+                        <td class="position-price">$${currentPrice.toFixed(2)}</td>
+                        <td class="position-value">$${marketValue.toLocaleString()}</td>
+                        <td class="position-pl ${plClass}">$${unrealizedPL.toFixed(2)}</td>
+                        <td class="position-pl-percent ${plPercentClass}">${(unrealizedPLPercent * 100).toFixed(2)}%</td>
+                    </tr>
+                `;
             });
             
-            positionsHTML += '</div>';
-            positionsList.innerHTML = positionsHTML;
+            positionsTableBody.innerHTML = positionsHTML;
+            
+            // Update summary
+            if (totalPositionsElement) {
+                totalPositionsElement.textContent = positions.length.toString();
+            }
+            
+            if (totalUnrealizedPLElement) {
+                const plClass = totalUnrealizedPL >= 0 ? 'positive' : 'negative';
+                totalUnrealizedPLElement.textContent = `$${totalUnrealizedPL.toFixed(2)}`;
+                totalUnrealizedPLElement.className = `summary-value ${plClass}`;
+            }
+            
             console.log('Positions updated successfully');
         } catch (error) {
             console.error('Error updating positions:', error);
-            positionsList.innerHTML = '<div class="no-positions">Error loading positions: ' + error.message + '</div>';
+            positionsTableBody.innerHTML = '<tr><td colspan="6" class="no-positions">Error loading positions: ' + error.message + '</td></tr>';
         }
     }
     

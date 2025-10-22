@@ -10,5 +10,4 @@ eventlet==0.33.3
 beautifulsoup4==4.12.2
 matplotlib==3.7.2
 seaborn==0.12.2
-yfinance==0.2.18
-
+yfinance==0.2.54

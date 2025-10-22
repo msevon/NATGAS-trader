@@ -147,10 +147,37 @@
                 <div class="card positions-card">
                     <div class="card-header">
                         <h3><i class="fas fa-chart-line"></i> Current Positions</h3>
+                        <div class="last-update" id="positionsUpdate">Last update: --</div>
                     </div>
                     <div class="positions-content">
-                        <div id="positionsList">
-                            <div class="no-positions">Loading positions...</div>
+                        <div class="positions-table-container">
+                            <table class="positions-table" id="positionsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Ticker</th>
+                                        <th>Quantity</th>
+                                        <th>Current Price</th>
+                                        <th>Market Value</th>
+                                        <th>Unrealized P&L</th>
+                                        <th>P&L %</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="positionsTableBody">
+                                    <tr>
+                                        <td colspan="6" class="no-positions">Loading positions...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="positions-summary" id="positionsSummary">
+                            <div class="summary-item">
+                                <span class="summary-label">Total Positions:</span>
+                                <span class="summary-value" id="totalPositions">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Total Unrealized P&L:</span>
+                                <span class="summary-value" id="totalUnrealizedPL">$0.00</span>
+                            </div>
                         </div>
                     </div>
                 </div>

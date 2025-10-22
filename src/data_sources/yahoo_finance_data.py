@@ -39,6 +39,30 @@ class YahooFinanceDataFetcher:
         
         self.last_request_time = time.time()
     
+    def _test_api_availability(self) -> bool:
+        """Test if Yahoo Finance API is available and not rate limited"""
+        try:
+            import yfinance as yf
+            
+            # Test with yfinance directly to catch YFRateLimitError
+            ticker = yf.Ticker('AAPL')
+            hist = ticker.history(period='1d')
+            
+            if hist.empty:
+                self.logger.warning("Yahoo Finance API returned empty data")
+                return False
+            else:
+                self.logger.info("Yahoo Finance API is available")
+                return True
+                
+        except Exception as e:
+            if "YFRateLimitError" in str(type(e)) or "Rate limited" in str(e):
+                self.logger.warning("Yahoo Finance API is rate limited")
+                return False
+            else:
+                self.logger.warning(f"Failed to test Yahoo Finance API availability: {e}")
+                return False
+    
     def _get_cache_key(self, symbol: str, start_date: datetime, end_date: datetime) -> str:
         """Generate cache key for the request"""
         return f"{symbol}_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}"
@@ -74,8 +98,12 @@ class YahooFinanceDataFetcher:
     def _save_to_cache(self, cache_file: str, df: pd.DataFrame):
         """Save data to cache file"""
         try:
+            # Convert datetime objects to strings for JSON serialization
+            df_copy = df.copy()
+            df_copy['date'] = df_copy['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+            
             cache_data = {
-                'data': df.to_dict('records'),
+                'data': df_copy.to_dict('records'),
                 'timestamp': datetime.now().isoformat()
             }
             with open(cache_file, 'w') as f:
@@ -92,6 +120,11 @@ class YahooFinanceDataFetcher:
                 
                 # Enforce request throttling
                 self._enforce_request_throttling()
+                
+                # Test API availability first
+                if not self._test_api_availability():
+                    self.logger.warning("Yahoo Finance API is rate limited - skipping request")
+                    return None
                 
                 ticker = yf.Ticker(symbol)
                 hist = ticker.history(start=start_date, end=end_date)
@@ -131,7 +164,13 @@ class YahooFinanceDataFetcher:
                     self.logger.error(f"HTTP error for {symbol}: {e}")
                     raise e
             except Exception as e:
-                if "429" in str(e) or "Too Many Requests" in str(e):
+                # Handle yfinance-specific rate limit error
+                if "YFRateLimitError" in str(type(e)) or "Rate limited" in str(e):
+                    wait_time = self.retry_delay * (2 ** attempt)
+                    self.logger.warning(f"Yahoo Finance rate limited for {symbol}, waiting {wait_time} seconds before retry")
+                    time.sleep(wait_time)
+                    continue
+                elif "429" in str(e) or "Too Many Requests" in str(e):
                     wait_time = self.retry_delay * (2 ** attempt)
                     self.logger.warning(f"Rate limited for {symbol}, waiting {wait_time} seconds before retry")
                     time.sleep(wait_time)
